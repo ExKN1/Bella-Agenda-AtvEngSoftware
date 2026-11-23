@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Escolha seu serviço, encontre um horário e reserve seu momento de cuidado. Projeto acadêmico Bella Agenda.">
+  <meta name="theme-color" content="#6b4295"><title>Bella Agenda | Seu momento de cuidado</title>
+  <link rel="stylesheet" href="styles.css"><script src="model.js" defer></script><script src="app.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#agenda" aria-label="Bella Agenda — início"><span class="brand-mark" aria-hidden="true">b.</span></a>
+    <p class="nav-label">SEU ESPAÇO DE CUIDADO</p>
+    <nav aria-label="Principal">
+      <a id="nav-agenda" href="#agenda" class="nav-item active"><span aria-hidden="true">▦</span> Agendar serviço</a>
+      <a id="nav-reservas" href="#reservas" class="nav-item"><span aria-hidden="true">▤</span> Minhas reservas <span id="nav-count" class="nav-count">0</span></a>
+    </nav>
+    <div class="sidebar-bottom"><div class="mini-flower" aria-hidden="true">b.</div><strong>Um tempo só seu.</strong><p>Pequenos cuidados fazem<br>parte de grandes dias.</p><button id="about-btn" class="text-button">Sobre o projeto</button></div>
+  </aside>
+  <div class="shell">
+    <header class="topbar"><span>BELEZA & BEM-ESTAR</span><span class="demo-tag">Projeto acadêmico · demonstração</span></header>
+    <main>
+      <section id="agenda-view" aria-labelledby="page-title">
+        <div class="page-heading"><div><p class="eyebrow">RESERVE UM MOMENTO PARA VOCÊ</p><h1 id="page-title">Seu próximo cuidado<br>começa aqui<span>.</span></h1><p class="intro">Escolha o serviço, encontre seu horário e deixe o resto com a gente.</p></div><div class="hero-art" aria-hidden="true"><div class="arch"><span>b.</span></div><span class="art-caption">CUIDAR DE SI FAZ BEM</span></div></div>
+        <div class="booking-layout">
+          <div class="booking-main">
+            <section class="step-section"><div class="section-heading"><span class="step">1</span><h2>Qual cuidado você procura?</h2></div><div class="filters" role="group" aria-label="Filtrar serviços"><button class="filter active" data-category="Todos" aria-pressed="true">Todos os serviços</button><button class="filter" data-category="Cabelo" aria-pressed="false">Cabelo</button><button class="filter" data-category="Unhas" aria-pressed="false">Unhas</button></div><div id="services" class="service-grid"></div></section>
+            <section class="step-section"><div class="section-heading"><span class="step">2</span><h2>Com quem vai ser?</h2></div><div id="professionals" class="professional-grid"></div></section>
+            <section class="step-section"><div class="section-heading"><span class="step">3</span><h2>Escolha o melhor horário</h2></div><div class="date-row"><label for="date">Dia do atendimento</label><input type="date" id="date" required></div><p class="hint">Segunda a sábado, das 9h às 18h · fuso do navegador</p><div id="slots" class="slots" aria-label="Horários disponíveis"></div><p id="slot-message" class="empty-note" role="status"></p></section>
+          </div>
+          <aside class="summary"><div class="summary-top"><span aria-hidden="true">✧</span><h2>Seu momento</h2></div><p class="summary-intro">Tudo pronto para cuidar de você.</p><div id="summary-details"></div><div class="total-row"><span>Total</span><strong id="total">R$ 0,00</strong></div><form id="booking-form"><label for="customer-name">Seu nome</label><input id="customer-name" placeholder="Como podemos chamar você?" autocomplete="name" minlength="2" maxlength="80" required><button id="reserve-btn" class="primary" type="submit" disabled>Confirmar reserva</button></form><p class="summary-foot">O horário fica reservado após a confirmação. Você poderá simular o pagamento em seguida.</p><div class="demo-note">Sem cobranças reais. Os dados ficam neste navegador.</div></aside>
+        </div>
+      </section>
+      <section id="reservas-view" class="hidden" aria-labelledby="reservas-title"><p class="eyebrow">SEUS PRÓXIMOS MOMENTOS</p><div class="reservations-heading"><div><h1 id="reservas-title">Minhas reservas<span>.</span></h1><p class="intro">Acompanhe seus horários e pagamentos por aqui.</p></div><a class="primary link-button" href="#agenda">Nova reserva</a></div><div class="reservation-toolbar"><label for="booking-filter">Exibir</label><select id="booking-filter"><option value="all">Todas as reservas</option><option value="pending">Aguardando pagamento</option><option value="paid">Pagas</option><option value="cancelled">Canceladas</option></select><span id="reservation-count"></span></div><div id="bookings"></div></section>
+      <footer>bella agenda <span>Feito para deixar o cuidado mais simples.</span></footer>
+    </main>
+  </div>
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+  <dialog id="payment-dialog" aria-labelledby="payment-title"><form id="payment-form"><div class="dialog-heading"><h2 id="payment-title">Pagamento demonstrativo</h2><button type="button" class="close-button" data-close="payment-dialog" aria-label="Fechar">×</button></div><p>Esta operação é uma simulação acadêmica. Nenhum valor será cobrado.</p><div id="payment-details" class="payment-details"></div><fieldset><legend>Forma de pagamento</legend><label class="payment-option"><input type="radio" name="method" value="pix" checked><span><strong>Pix simulado</strong><small>Aprovação imediata para demonstração</small></span></label><label class="payment-option"><input type="radio" name="method" value="card"><span><strong>Cartão simulado</strong><small>Sem solicitar dados de cartão</small></span></label></fieldset><button class="primary" type="submit">Simular aprovação do pagamento</button></form></dialog>
+  <dialog id="cancel-dialog" aria-labelledby="cancel-title"><div class="dialog-heading"><h2 id="cancel-title">Cancelar reserva?</h2><button class="close-button" data-close="cancel-dialog" aria-label="Fechar">×</button></div><p>O horário será liberado para outro agendamento. Se já houver pagamento simulado, o histórico será preservado; nenhuma transação real ocorreu.</p><div class="dialog-actions"><button class="secondary" data-close="cancel-dialog">Manter reserva</button><button id="confirm-cancel" class="danger">Cancelar reserva</button></div></dialog>
+  <dialog id="receipt-dialog" aria-labelledby="receipt-title"><div class="dialog-heading"><h2 id="receipt-title">Comprovante de demonstração</h2><button class="close-button" data-close="receipt-dialog" aria-label="Fechar">×</button></div><div id="receipt-content"></div><p class="demo-note">Documento acadêmico, sem valor fiscal. Não comprova pagamento real.</p><button id="download-receipt" class="primary">Baixar comprovante (.txt)</button></dialog>
+  <dialog id="about-dialog" aria-labelledby="about-title"><div class="dialog-heading"><h2 id="about-title">Sobre o projeto</h2><button class="close-button" data-close="about-dialog" aria-label="Fechar">×</button></div><p>Aplicativo de Reservas de Serviços · Atividade Avaliativa Individual 03.</p><ol><li><strong>Consulta de agenda:</strong> filtra serviço, profissional e data; calcula horários livres considerando a duração.</li><li><strong>Reservas:</strong> registra, lista e cancela atendimentos, bloqueando conflitos de horário.</li><li><strong>Pagamento:</strong> simula aprovação por Pix ou cartão e gera comprovante.</li></ol><p>Implementado com HTML, CSS e JavaScript, com persistência local. Sem login. Não compartilha agenda entre dispositivos e não processa pagamentos reais.</p></dialog>
+</body></html>
